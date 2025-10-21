@@ -1,0 +1,98 @@
+---
+title: 'Modern CSS Layouts: Grid, Flexbox, and Beyond'
+description: 'Master modern CSS layout techniques including CSS Grid, Flexbox, and new features like Container Queries and Subgrid.'
+date: '2024-01-18'
+author:
+  name: 'Emma Williams'
+  avatar: 'https://i.pravatar.cc/150?img=9'
+coverImage: 'https://images.unsplash.com/photo-1523437113738-bbd3cc89fb19?w=1200&h=630&fit=crop'
+category: 'CSS'
+tags: ['CSS', 'Web Design', 'Layout', 'Frontend']
+featured: false
+---
+
+## Introduction
+
+Modern CSS has evolved dramatically, providing powerful tools for creating complex layouts with minimal code. Let's explore the essential techniques every frontend developer should master.
+
+## CSS Grid: The Layout Powerhouse
+
+CSS Grid is a two-dimensional layout system that revolutionizes how we build web layouts.
+
+### Basic Grid Setup
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+```
+
+### Named Grid Areas
+
+Create semantic, readable layouts:
+
+```css
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+  grid-template-columns: 250px 1fr 1fr;
+  gap: 1rem;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+```
+
+## Flexbox: One-Dimensional Layouts
+
+Flexbox excels at distributing space and aligning items in one dimension.
+
+### Centering Made Easy
+
+```css
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+```
+
+### Responsive Navigation
+
+```css
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+```
+
+## Container Queries
+
+Container queries enable responsive design based on container size:
+
+```css
+.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+}
+```
+
+## Conclusion
+
+Modern CSS provides powerful tools for creating flexible, responsive layouts. Master these techniques to build better web experiences!

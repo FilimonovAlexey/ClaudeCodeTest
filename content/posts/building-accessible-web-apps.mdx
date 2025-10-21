@@ -1,0 +1,91 @@
+---
+title: 'Building Accessible Web Applications'
+description: 'Essential accessibility practices for creating inclusive web experiences that work for everyone, including users with disabilities.'
+date: '2024-01-12'
+author:
+  name: 'Lisa Martinez'
+  avatar: 'https://i.pravatar.cc/150?img=10'
+coverImage: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1200&h=630&fit=crop'
+category: 'Web'
+tags: ['Accessibility', 'a11y', 'Web Development', 'UX']
+featured: false
+---
+
+## Why Accessibility Matters
+
+Web accessibility ensures that websites and applications are usable by everyone, including people with disabilities. It's not just ethical—it's often legally required.
+
+## Semantic HTML
+
+Use appropriate HTML elements:
+
+```html
+<!-- ❌ Bad -->
+<div onclick="handleClick()">Click me</div>
+
+<!-- ✅ Good -->
+<button onClick={handleClick}>Click me</button>
+```
+
+## ARIA Attributes
+
+Enhance accessibility with ARIA:
+
+```jsx
+<nav aria-label="Main navigation">
+  <ul role="list">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+```
+
+## Keyboard Navigation
+
+Ensure all interactive elements are keyboard accessible:
+
+```jsx
+function Modal({ isOpen, onClose }) {
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isOpen, onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      {/* Modal content */}
+    </div>
+  );
+}
+```
+
+## Color Contrast
+
+Maintain proper color contrast ratios:
+
+- **Normal text**: 4.5:1 minimum
+- **Large text**: 3:1 minimum
+- **UI components**: 3:1 minimum
+
+## Testing Tools
+
+Use these tools to audit accessibility:
+
+- **axe DevTools** - Browser extension
+- **Lighthouse** - Built into Chrome
+- **WAVE** - Web accessibility evaluation tool
+- **Screen readers** - NVDA, JAWS, VoiceOver
+
+## Conclusion
+
+Accessibility should be built in from the start, not added as an afterthought. By following these practices, you create better experiences for all users.

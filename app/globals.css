@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Code block styling */
+pre {
+  @apply rounded-lg bg-muted p-4 overflow-x-auto;
+}
+
+pre code {
+  @apply bg-transparent p-0 text-sm;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+}
+
+/* Inline code */
+:not(pre) > code {
+  @apply bg-muted text-foreground px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+/* Syntax highlighting for code blocks */
+.hljs {
+  @apply bg-muted;
+}
+
+.hljs-comment,
+.hljs-quote {
+  @apply text-muted-foreground italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  @apply text-primary font-semibold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.hljs-string,
+.hljs-doctag {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  @apply text-purple-600 dark:text-purple-400 font-semibold;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  @apply text-cyan-600 dark:text-cyan-400;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.hljs-regexp,
+.hljs-link {
+  @apply text-orange-600 dark:text-orange-400;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  @apply text-pink-600 dark:text-pink-400;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  @apply text-indigo-600 dark:text-indigo-400;
+}
+
+.hljs-meta {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.hljs-deletion {
+  @apply bg-red-100 dark:bg-red-900;
+}
+
+.hljs-addition {
+  @apply bg-green-100 dark:bg-green-900;
+}
+
+.hljs-emphasis {
+  @apply italic;
+}
+
+.hljs-strong {
+  @apply font-bold;
+}
+
+/* Anchor link styling */
+.anchor-link {
+  @apply no-underline hover:underline;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-lg;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

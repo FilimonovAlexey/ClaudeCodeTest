@@ -1,0 +1,241 @@
+---
+title: 'Mastering TypeScript: Advanced Type Patterns'
+description: 'Explore advanced TypeScript patterns including conditional types, mapped types, and template literal types to write more robust and maintainable code.'
+date: '2024-01-20'
+author:
+  name: 'Sarah Chen'
+  avatar: 'https://i.pravatar.cc/150?img=5'
+coverImage: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=1200&h=630&fit=crop'
+category: 'TypeScript'
+tags: ['TypeScript', 'JavaScript', 'Programming', 'Types']
+featured: true
+---
+
+## Introduction
+
+TypeScript's type system is incredibly powerful, offering features that go far beyond basic type annotations. In this guide, we'll explore advanced type patterns that will elevate your TypeScript skills to the next level.
+
+## Conditional Types
+
+Conditional types allow you to express type relationships that depend on a condition, similar to ternary operators in JavaScript.
+
+### Basic Conditional Types
+
+```typescript
+type IsString<T> = T extends string ? true : false;
+
+type A = IsString<string>; // true
+type B = IsString<number>; // false
+```
+
+### Practical Example: Extract Return Type
+
+```typescript
+type GetReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
+
+function getData() {
+  return { id: 1, name: 'John' };
+}
+
+type DataType = GetReturnType<typeof getData>;
+// { id: number; name: string; }
+```
+
+## Mapped Types
+
+Mapped types allow you to create new types by transforming properties of existing types.
+
+### Making Properties Optional
+
+```typescript
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+type PartialUser = Partial<User>;
+// All properties are optional
+```
+
+### Creating Readonly Types
+
+```typescript
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type ReadonlyUser = Readonly<User>;
+// All properties are readonly
+```
+
+## Template Literal Types
+
+Template literal types build on string literal types and allow you to create new string types through concatenation.
+
+```typescript
+type Color = 'red' | 'blue' | 'green';
+type Quantity = 'one' | 'two';
+
+type ColorQuantity = `${Quantity}-${Color}`;
+// 'one-red' | 'one-blue' | 'one-green' | 'two-red' | 'two-blue' | 'two-green'
+```
+
+### Event Handler Types
+
+```typescript
+type PropEventSource<Type> = {
+  on<Key extends string & keyof Type>
+    (eventName: `${Key}Changed`, callback: (newValue: Type[Key]) => void): void;
+};
+
+declare function makeWatchedObject<Type>(obj: Type): Type & PropEventSource<Type>;
+
+const person = makeWatchedObject({
+  firstName: "John",
+  age: 26
+});
+
+person.on("firstNameChanged", newName => {
+  console.log(`New name: ${newName.toUpperCase()}`);
+});
+```
+
+## Utility Types
+
+TypeScript provides several built-in utility types for common type transformations.
+
+### Pick and Omit
+
+```typescript
+type UserPreview = Pick<User, 'id' | 'name'>;
+type UserWithoutEmail = Omit<User, 'email'>;
+```
+
+### Record
+
+```typescript
+type PageInfo = {
+  title: string;
+  description: string;
+};
+
+type Page = 'home' | 'about' | 'contact';
+
+const pages: Record<Page, PageInfo> = {
+  home: { title: 'Home', description: 'Welcome' },
+  about: { title: 'About', description: 'About us' },
+  contact: { title: 'Contact', description: 'Get in touch' }
+};
+```
+
+## Discriminated Unions
+
+Discriminated unions provide a way to handle different cases in a type-safe manner.
+
+```typescript
+interface Circle {
+  kind: 'circle';
+  radius: number;
+}
+
+interface Square {
+  kind: 'square';
+  sideLength: number;
+}
+
+interface Triangle {
+  kind: 'triangle';
+  base: number;
+  height: number;
+}
+
+type Shape = Circle | Square | Triangle;
+
+function getArea(shape: Shape): number {
+  switch (shape.kind) {
+    case 'circle':
+      return Math.PI * shape.radius ** 2;
+    case 'square':
+      return shape.sideLength ** 2;
+    case 'triangle':
+      return (shape.base * shape.height) / 2;
+  }
+}
+```
+
+## Type Guards
+
+Type guards narrow down the type of a variable within a conditional block.
+
+### Custom Type Guards
+
+```typescript
+interface Fish {
+  swim(): void;
+}
+
+interface Bird {
+  fly(): void;
+}
+
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swim !== undefined;
+}
+
+function move(pet: Fish | Bird) {
+  if (isFish(pet)) {
+    pet.swim();
+  } else {
+    pet.fly();
+  }
+}
+```
+
+## Advanced Patterns
+
+### Builder Pattern with TypeScript
+
+```typescript
+class QueryBuilder<T> {
+  private conditions: string[] = [];
+
+  where(condition: keyof T, value: any): this {
+    this.conditions.push(`${String(condition)} = ${value}`);
+    return this;
+  }
+
+  build(): string {
+    return this.conditions.join(' AND ');
+  }
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const query = new QueryBuilder<User>()
+  .where('id', 1)
+  .where('name', 'John')
+  .build();
+```
+
+## Best Practices
+
+1. **Use strict mode** - Enable `strict: true` in tsconfig.json
+2. **Prefer interfaces over type aliases** for object shapes
+3. **Use const assertions** for literal types
+4. **Leverage type inference** - don't over-annotate
+5. **Create utility types** for common patterns
+
+## Conclusion
+
+Advanced TypeScript patterns enable you to write more expressive, type-safe code. By mastering these concepts, you'll be able to catch more errors at compile time and create better developer experiences.
+
+Remember: the goal is not to use advanced types everywhere, but to use them where they add value and improve code quality.
