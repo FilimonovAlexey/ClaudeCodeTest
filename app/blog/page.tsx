@@ -42,15 +42,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   }
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-          Blog
+      <div className="mb-12 border-b border-border pb-8">
+        <h1 className="mb-3 text-4xl font-bold tracking-tight sm:text-5xl">
+          All Articles
         </h1>
-        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          Explore our collection of articles on web development, technology
-          trends, and software engineering.
+        <p className="text-lg text-muted-foreground">
+          Browse all articles on web development and technology
         </p>
       </div>
 
@@ -64,7 +63,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
       {/* Posts Grid */}
       {filteredPosts.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2">
           {filteredPosts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}
@@ -72,15 +71,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       ) : (
         <div className="py-12 text-center">
           <p className="text-lg text-muted-foreground">
-            No posts found matching your filters.
+            No articles found matching your filters.
           </p>
         </div>
       )}
-
-      {/* Posts count */}
-      <div className="mt-8 text-center text-sm text-muted-foreground">
-        Showing {filteredPosts.length} of {allPosts.length} articles
-      </div>
     </div>
   );
 }

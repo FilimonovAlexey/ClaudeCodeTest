@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import {
   getAllPostSlugs,
   getPostBySlug,
@@ -111,30 +111,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
 
           {/* Meta information */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              {post.author.avatar && (
-                <Image
-                  src={post.author.avatar}
-                  alt={post.author.name}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-              )}
-              <div className="flex items-center gap-1">
-                <User className="h-4 w-4" />
-                <span>{post.author.name}</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-1">
-              <Calendar className="h-4 w-4" />
-              <time dateTime={post.date}>{formatDate(post.date)}</time>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span>{post.readingTime}</span>
-            </div>
+          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+            <span>{post.author.name}</span>
+            <span>·</span>
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            <span>·</span>
+            <span>{post.readingTime}</span>
           </div>
 
           {/* Tags */}
@@ -221,7 +203,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <h2 className="mb-8 text-3xl font-bold tracking-tight">
               Related Articles
             </h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 sm:grid-cols-2">
               {relatedPosts.map((relatedPost) => (
                 <BlogCard key={relatedPost.slug} post={relatedPost} />
               ))}
